@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
-import { FaStar, FaQuoteLeft } from 'react-icons/fa'
+import { FaStar, FaQuoteLeft, FaGoogle, FaInstagram, FaFacebookF } from 'react-icons/fa'
+import { GOOGLE_REVIEW, SOCIALS } from '../constants.js'
 
 const REVIEWS = [
   {
@@ -72,6 +73,59 @@ export default function Testimonials() {
             </motion.figure>
           ))}
         </div>
+
+        {/* Reseña en Google + seguir en redes */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.5 }}
+          className="mt-12 flex flex-col items-center gap-6 rounded-2xl border border-espresso/10 bg-offwhite px-6 py-8 text-center"
+        >
+          <div>
+            <p className="font-display text-xl font-bold text-espresso">
+              ¿Ya nos visitaste?
+            </p>
+            <p className="mt-1 text-sm text-muted">
+              Déjanos tu reseña y síguenos para no perderte nuestras novedades.
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center gap-3 sm:flex-row">
+            <a
+              href={GOOGLE_REVIEW}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 rounded-full bg-espresso px-6 py-3 text-sm font-semibold text-cream shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-forest hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2 active:translate-y-0"
+            >
+              <FaGoogle className="h-4 w-4" />
+              Déjanos tu reseña en Google
+            </a>
+
+            <div className="flex items-center gap-2">
+              <a
+                href={SOCIALS.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Síguenos en Instagram"
+                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-br from-[#F58529] via-[#DD2A7B] to-[#8134AF] px-5 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#DD2A7B] focus-visible:ring-offset-2 active:translate-y-0"
+              >
+                <FaInstagram className="h-4 w-4" />
+                Instagram
+              </a>
+              <a
+                href={SOCIALS.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Síguenos en Facebook"
+                className="inline-flex items-center gap-2 rounded-full bg-[#1877F2] px-5 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#0f66d6] hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1877F2] focus-visible:ring-offset-2 active:translate-y-0"
+              >
+                <FaFacebookF className="h-4 w-4" />
+                Facebook
+              </a>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   )

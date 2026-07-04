@@ -22,5 +22,11 @@ para que carguen rápido.
 El LOGO va aparte, en:  public/logo.png  (de preferencia con fondo
 transparente).
 
+La IMAGEN PARA COMPARTIR (la que aparece cuando pegas el link en
+WhatsApp, Instagram o Facebook) va en:  public/og-image.jpg
+Tamaño ideal: 1200 x 630 px (horizontal). Puede ser tu mejor foto de
+bebidas o un banner con el logo. Mientras no exista, el link se
+comparte sin imagen (solo el título y la descripción).
+
 ¿Quieres usar otros nombres o más/menos fotos? Se edita el archivo
 src/data/images.js

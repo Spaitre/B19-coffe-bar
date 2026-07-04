@@ -20,6 +20,12 @@ export function waLink(text) {
 export const MAPS =
   'https://www.google.com/maps/search/?api=1&query=B19+Coffee+Bar+Av.+Juan+Aldama+785+Col.+Magisterial+Mexicali'
 
+// Enlace para dejar reseña en Google. Abre la ficha del negocio en Maps.
+// Para que abra directo el formulario de reseña, reemplázalo por:
+// https://search.google.com/local/writereview?placeid=TU_PLACE_ID
+export const GOOGLE_REVIEW =
+  'https://www.google.com/maps/search/?api=1&query=B19+Coffee+Bar+Mexicali'
+
 export const SOCIALS = {
   instagram: 'https://www.instagram.com/b19coffeebar.mxl/',
   facebook: 'https://www.facebook.com/B19COFFEEBAR/',

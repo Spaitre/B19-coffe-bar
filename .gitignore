@@ -20,3 +20,7 @@ Thumbs.db
 .vscode/*
 !.vscode/extensions.json
 .idea/
+
+# Documentos de venta (locales, no van al repo público)
+*.docx
+*.pdf
