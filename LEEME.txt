@@ -1,0 +1,191 @@
+════════════════════════════════════════════════════════════════
+  B19 COFFEE BAR — SITIO WEB
+  Guía rápida para editar y publicar (handoff)
+════════════════════════════════════════════════════════════════
+
+Este sitio es una página web hecha en React + Vite + Tailwind.
+No necesita base de datos ni servidor propio: todos los botones de
+contacto usan enlaces directos a WhatsApp, teléfono y Google Maps.
+
+
+────────────────────────────────────────────────────────────────
+ 1. CÓMO EDITAR EL CONTENIDO (dos formas)
+────────────────────────────────────────────────────────────────
+
+Hay DOS maneras de cambiar el menú y el horario. Puedes usar la que
+prefieras; la opción B es la recomendada para el dueño del negocio.
+
+  OPCIÓN A — Editar los archivos del proyecto (requiere el código):
+    • Menú:    src/data/menu.js
+    • Horario: src/data/hours.js
+    Cambias el número o el texto, guardas, y se actualiza.
+
+  OPCIÓN B — Editar desde Google Sheets (SIN tocar código):
+    El dueño edita una hoja de cálculo de Google y el sitio toma los
+    cambios al recargar la página. Ver la sección 3.
+
+Si Google Sheets está configurado, MANDA lo de Google Sheets.
+Si la hoja falla o no está configurada, el sitio usa los archivos
+locales automáticamente (nunca se queda en blanco).
+
+
+────────────────────────────────────────────────────────────────
+ 2. ARCHIVO DE GOOGLE SHEETS LISTO PARA IMPORTAR
+────────────────────────────────────────────────────────────────
+
+En la carpeta del proyecto está el archivo:
+
+    B19-Google-Sheets.xlsx
+
+Trae dos pestañas ya armadas con todos los datos:
+    • "Menu"     → todos los productos y precios
+    • "Horario"  → el horario de la semana
+
+Para subirlo a Google Sheets:
+  1. Entra a https://sheets.google.com
+  2. Archivo → Importar → Subir → arrastra B19-Google-Sheets.xlsx
+  3. Elige "Insertar hojas nuevas" → Importar datos
+  4. (Si aparece una pestaña vacía "Hoja 1", puedes borrarla.)
+
+
+────────────────────────────────────────────────────────────────
+ 3. CONECTAR EL GOOGLE SHEET CON EL SITIO
+────────────────────────────────────────────────────────────────
+
+  PASO 1 — Publicar cada pestaña como CSV
+    En Google Sheets:  Archivo → Compartir → Publicar en la web
+    • Desplegable izquierdo: elige la pestaña "Menu"
+    • Desplegable derecho: elige "Valores separados por comas (.csv)"
+    • Clic en "Publicar" → Aceptar
+    • Copia la URL (termina en output=csv)
+    Repite eligiendo la pestaña "Horario" para obtener su URL.
+
+  PASO 2 — Pegar las URLs en el sitio
+    Abre el archivo:  src/data/sheets.config.js
+    Y reemplaza las URLs de ejemplo por las tuyas:
+
+      export const MENU_CSV_URL  = 'PEGA_AQUI_LA_URL_DE_MENU'
+      export const HOURS_CSV_URL = 'PEGA_AQUI_LA_URL_DE_HORARIO'
+
+    Para DESACTIVAR Google Sheets y usar solo los archivos locales,
+    deja las cadenas vacías:
+
+      export const MENU_CSV_URL  = ''
+      export const HOURS_CSV_URL = ''
+
+
+────────────────────────────────────────────────────────────────
+ 4. REGLAS DE LAS COLUMNAS (pestaña "Menu")
+────────────────────────────────────────────────────────────────
+
+  Columnas (fila 1, tal cual, en minúsculas y sin acentos):
+    categoria | nombre | descripcion | oz12 | oz16 | single | sabores | tags | limitado
+
+  • categoria : escríbela idéntica en todas las filas de esa
+                categoría. Nombres válidos (con su ícono):
+                Café Caliente, Café Frío, Frappés, Matcha, Chai,
+                Sin Café, Postres.
+                El orden de las categorías en la web = el orden en
+                que aparecen en la hoja.
+  • oz12 / oz16 : bebidas de DOS tamaños. Llena ambas, deja single
+                  vacío.
+  • single : bebidas de UN solo tamaño. Llénala, deja oz12/oz16
+             vacías.
+  • ¡No llenes single Y oz12/oz16 a la vez! Fila sin precio = se
+    ignora.
+  • sabores : opcional. Separados por coma: Vainilla, Caramelo, Avellana
+  • tags : opcional. Etiqueta de color. Valores: Más pedido, Nuevo,
+           Recomendado, Favorito, Especial.
+  • limitado : escribe "si" para "Disponibilidad limitada"; vacío si
+               no aplica.
+  • Los precios van solo el número (55), sin el signo $.
+
+
+────────────────────────────────────────────────────────────────
+ 5. REGLAS DEL HORARIO (pestaña "Horario")
+────────────────────────────────────────────────────────────────
+
+  Columnas (fila 1): dia | abre | cierra
+
+  • dia : minúsculas y sin acentos →
+          lunes, martes, miercoles, jueves, viernes, sabado, domingo
+  • abre / cierra : formato "7:30 AM" / "10:00 PM" (con espacio antes
+                    de AM/PM).
+  • Día cerrado : escribe "cerrado" en la columna abre (o deja la
+                  fila vacía).
+  • Si Google convierte "7:30 AM" en una hora de reloj, selecciona
+    esas columnas → Formato → Número → Texto sencillo, y vuelve a
+    escribirlas.
+
+  El indicador "Abierto ahora / Cerrado" del sitio se calcula con la
+  hora de Mexicali (zona del Pacífico), sin importar desde dónde
+  entre el visitante.
+
+
+────────────────────────────────────────────────────────────────
+ 6. CORRER Y PUBLICAR EL SITIO (para el desarrollador)
+────────────────────────────────────────────────────────────────
+
+  Instalar dependencias (una sola vez):
+    npm install
+
+  Ver el sitio en la computadora (modo desarrollo):
+    npm run dev
+    → abre la dirección que muestra (ej. http://localhost:5173)
+
+  Generar la versión final para subir a internet:
+    npm run build
+    → crea la carpeta "dist" con el sitio listo.
+
+  Hosting recomendado (gratis): Vercel, Netlify o Cloudflare Pages.
+  Solo se sube el proyecto y ellos hacen el "build" automático.
+  El único costo real es el dominio (~$150–250 MXN al año).
+
+
+────────────────────────────────────────────────────────────────
+ 7. DATOS DEL NEGOCIO (ya configurados en el sitio)
+────────────────────────────────────────────────────────────────
+
+  Nombre     : B19 Coffee Bar
+  Lema       : Apasionados por el café y el servicio
+  Dirección  : Av. Juan Aldama 785, Col. Magisterial, Mexicali, B.C.
+               C.P. 21290
+  Teléfono   : 686 514 6876
+  WhatsApp   : 526865146876
+  Correo     : B19coffebar@gmail.com
+  Instagram  : https://www.instagram.com/b19coffeebar.mxl/
+  Facebook   : https://www.facebook.com/B19COFFEEBAR/
+
+  Para cambiar teléfono, dirección, correo o redes sociales:
+    edita el archivo  src/constants.js
+
+
+────────────────────────────────────────────────────────────────
+ 8. LOGO Y FOTOS DEL LOCAL
+────────────────────────────────────────────────────────────────
+
+  LOGO
+    Guarda el logo en:  public/logo.png
+    (de preferencia con fondo transparente). Aparece automáticamente
+    en la barra superior y en el pie de página. Mientras no exista,
+    se muestra un logo vectorial temporal en los colores de la marca.
+
+  FOTOS
+    Guarda las fotos en la carpeta:  public/gallery/
+    con estos nombres exactos:
+      nosotros.jpg  → sección "¿Por qué B19?"
+      bebidas.jpg   → galería
+      latte.jpg     → galería
+      comunidad.jpg → galería
+      barista.jpg   → galería
+      espresso.jpg  → galería
+      postre.jpg    → galería
+    Mientras no existan, el sitio usa fotos temporales para no verse
+    roto. Para cambiar nombres o cantidad de fotos: src/data/images.js
+
+  MAPA
+    El mapa de Google ya está integrado y apunta a la dirección del
+    local. Si algún día cambia la ubicación, se ajusta en el iframe
+    dentro de  src/components/Contact.jsx
+
+════════════════════════════════════════════════════════════════

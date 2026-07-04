@@ -1,0 +1,26 @@
+GUARDA AQUÍ LAS FOTOS DEL LOCAL
+================================
+
+Coloca tus fotos en ESTA carpeta (public/gallery/) con estos nombres
+EXACTOS. En cuanto existan, aparecen solas en el sitio. Mientras no
+estén, el sitio muestra una foto temporal para no verse roto.
+
+  nosotros.jpg   → foto grande de la sección "¿Por qué B19?"
+                   (recomendado: barista / latte / la barra)
+
+  Galería "Un vistazo a B19" (4 a 6 fotos):
+  bebidas.jpg    → tus bebidas de especialidad
+  latte.jpg      → arte latte / taza servida
+  comunidad.jpg  → cliente / ambiente / exterior
+  barista.jpg    → barista preparando café
+  espresso.jpg   → preparación / máquina de espresso
+  postre.jpg     → repostería / pan artesanal
+
+Formato recomendado: .jpg, horizontal o cuadrada, máx ~1600px de ancho
+para que carguen rápido.
+
+El LOGO va aparte, en:  public/logo.png  (de preferencia con fondo
+transparente).
+
+¿Quieres usar otros nombres o más/menos fotos? Se edita el archivo
+src/data/images.js
